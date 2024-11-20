@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cassert>
 #include "List.Class.h"
+#include "List.Class.Iter.h"
 #include "List.Test.h"
 
 
@@ -38,6 +39,29 @@ int main()
     stringList.searchtext("World");
 
     stringList.print(); // Вывод списка
+
+    cout << endl << "Работа с итератором:" << endl;
+
+    LinkedListIter<int> intListiter; // Список для целых чисел
+
+    intListiter.append(20); // Добавление элемента
+    intListiter.append(10);
+    intListiter.append(30);
+
+    // Использование итератора для вывода элементов
+    cout << "Элементы списка: ";
+
+    for (auto it = intListiter.begin(); it != intListiter.end(); ++it) {
+        cout << *it << " ";
+    }
+    cout << endl;
+
+    // Альтернативный способ с циклом range-based for
+    cout << "Элементы списка (range-based for): ";
+    for (const auto& value : intListiter) {
+        cout << value << " ";
+    }
+    cout << endl << endl;
 
     return 0;
 }

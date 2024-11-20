@@ -4,28 +4,18 @@
 #include <iostream>
 using namespace std;
 
-// Шаблонный узел списка
-template <typename T>
-class Node {
-public:
-    T data;         // Данные узла (шаблонный тип)
-    Node* next;     // Указатель на следующий узел
-
-    Node(T val) : data(val), next(nullptr) {}
-};
-
 // Шаблонный класс односвязного списка
 template <typename T>
-class LinkedList {
+class LinkedListIter {
 private:
     Node<T>* head; // Указатель на голову списка
 
 public:
     // Конструктор
-    LinkedList() : head(nullptr) {}
+    LinkedListIter() : head(nullptr) {}
 
     // Деструктор для очистки памяти
-    ~LinkedList() {
+    ~LinkedListIter() {
         clear();
     }
 
@@ -43,6 +33,48 @@ public:
             temp->next = newNode;
         }
         cout << "Элемент " << value << " добавлен в список.\n";
+    }
+
+    // Класс итератора
+    class Iterator {
+    private:
+        Node<T>* current; // Указатель на текущий узел
+    public:
+        // Конструктор итератора
+        Iterator(Node<T>* node) : current(node) {}
+
+        // Оператор разыменования
+        T& operator*() const {
+            return current->data;
+        }
+
+        // Оператор инкремента (переход к следующему узлу)
+        Iterator& operator++() {
+            if (current) {
+                current = current->next;
+            }
+            return *this;
+        }
+
+        // Оператор сравнения (равенство)
+        bool operator==(const Iterator& other) const {
+            return current == other.current;
+        }
+
+        // Оператор сравнения (неравенство)
+        bool operator!=(const Iterator& other) const {
+            return current != other.current;
+        }
+    };
+
+    // Функция для получения итератора на начало списка
+    Iterator begin() const {
+        return Iterator(head);
+    }
+
+    // Функция для получения итератора на конец списка
+    Iterator end() const {
+        return Iterator(nullptr);
     }
 
     // Функция проверки есть ли число поиска,  так же работает с string
