@@ -145,3 +145,48 @@ public:
         cout << "nullptr\n";
     }
 };
+
+// Класс итератора
+class Iterator {
+private:
+    Node<T>* current; // Указатель на текущий узел
+public:
+    // Конструктор итератора
+    Iterator(Node<T>* node) : current(node) {}
+
+    // Оператор разыменования
+    T& operator*() const {
+        return current->data;
+    }
+
+    // Оператор инкремента (переход к следующему узлу)
+    Iterator& operator++() {
+        if (current) {
+            current = current->next;
+        }
+        return *this;
+    }
+
+    // Оператор сравнения (равенство)
+    bool operator==(const Iterator& other) const {
+        return current == other.current;
+    }
+
+    // Оператор сравнения (неравенство)
+    bool operator!=(const Iterator& other) const {
+        return current != other.current;
+    }
+};
+
+// Функция для получения итератора на начало списка
+Iterator begin() const {
+    return Iterator(head);
+}
+
+// Функция для получения итератора на конец списка
+Iterator end() const {
+    return Iterator(nullptr);
+}
+
+
+}; 
