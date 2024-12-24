@@ -2,7 +2,6 @@
 #include <iostream>
 #include <cassert>
 #include "List.Class.h"
-#include "List.Class.Iter.h"
 #include "List.Test.h"
 
 
@@ -27,9 +26,6 @@ int main()
     intList.remove(20); // Удалеие 
     intList.print(); // Вывод списка
 
-    intList.clear();  // Очищение
-    intList.print(); // Вывод списка
-
     LinkedList<string> stringList; // Список для строк
 
     stringList.append("Hello"); // Поиск строки
@@ -40,28 +36,24 @@ int main()
 
     stringList.print(); // Вывод списка
 
-    cout << endl << "Работа с итератором:" << endl;
-
-    LinkedListIter<int> intListiter; // Список для целых чисел
-
-    intListiter.append(20); // Добавление элемента
-    intListiter.append(10);
-    intListiter.append(30);
-
-    // Использование итератора для вывода элементов
-    cout << "Элементы списка: ";
-
-    for (auto it = intListiter.begin(); it != intListiter.end(); ++it) {
-        cout << *it << " ";
+    cout << "Вывод списка итератора для целых чисел" << endl;
+    auto it = intList.getIterator();
+    while (it.hasNext()) {
+        cout << it.next() << " ";
     }
     cout << endl;
 
-    // Альтернативный способ с циклом range-based for
-    cout << "Элементы списка (range-based for): ";
-    for (const auto& value : intListiter) {
-        cout << value << " ";
+    cout << "Вывод списка итератора для строк" << endl;
+    auto its = stringList.getIterator();
+    while (its.hasNext()) {
+        cout << its.next() << " ";
     }
-    cout << endl << endl;
+    cout << endl;
+
+    intList.clear();  // Очищение
+    intList.print(); // Вывод списка
+
+
 
     return 0;
 }

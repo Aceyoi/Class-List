@@ -25,9 +25,15 @@ void testcheck() {
     assert(ListTestint.search(50) != -1);
     //assert(ListTestint.search(50) == "Число не найденно");
 
-
     assert(ListTestint.search_Index(20) == 2);
     assert(ListTestint.search_Index(50) == -1);
+
+    auto it = ListTestint.getIterator(); // Тест итератора int
+    assert(it.hasNext() == true);
+    assert(it.next() == 10);
+    assert(it.next() == 20);
+    assert(it.next() == 30);
+    assert(it.hasNext() == false);
 
     ListTestint.remove(20);
     assert(ListTestint.searchcheck(20) == false);
@@ -43,6 +49,12 @@ void testcheck() {
     assert(ListTeststr.search_Index("Hello") == 1);
 
     assert(ListTeststr.searchcheck("Hello") == true);
+
+    auto its = ListTeststr.getIterator(); // Тест итератора string
+    assert(its.hasNext() == true);
+    assert(its.next() == "Hello");
+    assert(its.next() == "World");
+    assert(its.hasNext() == false);
 
     ListTeststr.remove("Hello");
     assert(ListTeststr.searchcheck("Hello") == false);

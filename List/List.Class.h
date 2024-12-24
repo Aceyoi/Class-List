@@ -2,6 +2,7 @@
 #pragma once
 
 #include <iostream>
+
 using namespace std;
 
 // Шаблонный узел списка
@@ -143,5 +144,35 @@ public:
             temp = temp->next;
         }
         cout << "nullptr\n";
+    }
+
+    // Класс итератора для односвязного списка
+    class Iterator {
+    private:
+        Node<T>* current; // Текущий узел
+
+    public:
+        // Конструктор
+        Iterator(Node<T>* start) : current(start) {}
+
+        // Метод проверки если ли следующий элемент
+        bool hasNext() {
+            return current != nullptr;
+        }
+
+        // Метод получения следующего элемента
+        T next() {
+            if (!hasNext()) {
+                throw runtime_error("Нет следующего элемента");
+            }
+            T value = current->data;
+            current = current->next;
+            return value;
+        }
+    };
+
+    // Метод списка возвращающий начало итератора
+    Iterator getIterator() {
+        return Iterator(head);
     }
 };
